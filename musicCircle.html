@@ -10,9 +10,9 @@
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
   <script>
     window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = 'BQAJiywMqTNuPEUwv2bokhSQ0yPnrZKb3AZ69Bme-cBVOjJlUiwkWz_F1tMTP0CC-04MHtgiqOijT1lUmBsyzrvqXlXaa7A0NLGSXELiyWoVTHOrlwYFp5ioMrq80_lesR-oHnj31gJ-eEljWfRP2QE6M_H7gmLGpSiyPlbYMw';
+    const token = 'BQAjXufell-aE7GzSSyFbD8qQhdzthJPXuPMhEBeMWh8-OuyuCDgfkuNKpY7940Q5b0FvIg9t18UqCn7MlxtP114H9n56bqcLIjz_de9rOW0QzgACsR3jg14Oe5rX6-OZ9OiVZMDvco8azhVCwefS8j9ASJdEs47RlysNZwVaQ';
     const player = new Spotify.Player({
-      name: 'Web Playback SDK Quick Start Player',
+      name: 'Music Circle',
       getOAuthToken: cb => { cb(token); }
     });
 
@@ -37,6 +37,12 @@
   
     // Connect to the player!
     player.connect();
+
+    function myFunction() {
+    Spotify.player.togglePlay().then(() => {
+    console.log('Toggled playback!');
+    });
+    }
   }
   </script>
 
