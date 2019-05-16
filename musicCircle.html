@@ -9,44 +9,59 @@
 
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
   <script>
+    var player;
     window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = 'BQAjXufell-aE7GzSSyFbD8qQhdzthJPXuPMhEBeMWh8-OuyuCDgfkuNKpY7940Q5b0FvIg9t18UqCn7MlxtP114H9n56bqcLIjz_de9rOW0QzgACsR3jg14Oe5rX6-OZ9OiVZMDvco8azhVCwefS8j9ASJdEs47RlysNZwVaQ';
-    const player = new Spotify.Player({
-      name: 'Music Circle',
-      getOAuthToken: cb => { cb(token); }
-    });
+      const token = 'BQDfjzRu3K0vauxUKk9U3KeoQUcKXCHYEbwtjTLTQJAjPRDMbmAYyfPg2wd4jmosxqwd1B_CSeXUOETzGl1emXOPWj5OXtwPZwKodGOEcgCZQDoDc08eDFL7lX_JZ9_49nm2GQN4u-W7-Ocbxi-viuBnEHV8uTQd2EcIBgPccw';
+      player = new Spotify.Player({
+        name: 'Music Circle',
+        getOAuthToken: cb => { cb(token); }
+      });
 
-    // Error handling
-    player.addListener('initialization_error', ({ message }) => { console.error(message); });
-    player.addListener('authentication_error', ({ message }) => { console.error(message); });
-    player.addListener('account_error', ({ message }) => { console.error(message); });
-    player.addListener('playback_error', ({ message }) => { console.error(message); });
-  
-    // Playback status updates
-    player.addListener('player_state_changed', state => { console.log(state); });
-  
-    // Ready
-    player.addListener('ready', ({ device_id }) => {
-      console.log('Ready with Device ID', device_id);
-    });
-  
-    // Not Ready
-    player.addListener('not_ready', ({ device_id }) => {
-      console.log('Device ID has gone offline', device_id);
-    });
-  
-    // Connect to the player!
-    player.connect();
+      // Error handling
+      player.addListener('initialization_error', ({ message }) => { console.error(message); });
+      player.addListener('authentication_error', ({ message }) => { console.error(message); });
+      player.addListener('account_error', ({ message }) => { console.error(message); });
+      player.addListener('playback_error', ({ message }) => { console.error(message); });
+    
+      // Playback status updates
+      player.addListener('player_state_changed', state => { console.log(state); });
+    
+      // Ready
+      player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+      });
+    
+      // Not Ready
+      player.addListener('not_ready', ({ device_id }) => {
+        console.log('Device ID has gone offline', device_id);
+      });
+    
+      // Connect to the player!
+      player.connect();
 
-    function myFunction() {
-    Spotify.player.togglePlay().then(() => {
-    console.log('Toggled playback!');
-    });
+      function myFunction() {
+      Spotify.player.togglePlay().then(() => {
+      console.log('Toggled playback!');
+      });
     }
   }
   </script>
 
-  <button onclick="myFunction()">Click me</button>
+  <script>
+    toggleMusic = () => {
+      player.togglePlay().then(() => {
+      console.log('Toggled playback!');
+      });
+    }
+    playElectro = () => {
+    }
+  </script>
+
+  <button onclick="toggleMusic()">Play/Pause</button>
+
+  <button onclick="playElectro()">Electro</button>
+  <button onclick="toggleMusic()">R&B</button>
+  <button onclick="toggleMusic()">Blues</button>
 
 </body>
 </html>
