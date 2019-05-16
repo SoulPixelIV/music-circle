@@ -7,11 +7,18 @@
   <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
   <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
 
+  <script src="./node_modules/spotify-web-api-js/src/spotify-web-api.js"></script>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
+
+  <script>
+    var spotifyApi = new SpotifyWebApi();
+    spotifyApi.setAccessToken('BQA3S0PVPD33fqY_-gqsFoREL7W1TTeZSAeQrqIp6spoWNQCy1-GcnX3eUGRBca7IuUgUJELIBLDcVwKoJ67aHsvme1UNEJtKoRW5yUfLcHsDldlghfBYfZsdc5PwsADNbdGhtd5aaBa8r1bW83EHO4Ht-UvSCKRdvzSZqScdQ');
+  </script>
+
   <script>
     var player;
     window.onSpotifyWebPlaybackSDKReady = () => {
-      const token = 'BQDfjzRu3K0vauxUKk9U3KeoQUcKXCHYEbwtjTLTQJAjPRDMbmAYyfPg2wd4jmosxqwd1B_CSeXUOETzGl1emXOPWj5OXtwPZwKodGOEcgCZQDoDc08eDFL7lX_JZ9_49nm2GQN4u-W7-Ocbxi-viuBnEHV8uTQd2EcIBgPccw';
+      const token = 'BQA3S0PVPD33fqY_-gqsFoREL7W1TTeZSAeQrqIp6spoWNQCy1-GcnX3eUGRBca7IuUgUJELIBLDcVwKoJ67aHsvme1UNEJtKoRW5yUfLcHsDldlghfBYfZsdc5PwsADNbdGhtd5aaBa8r1bW83EHO4Ht-UvSCKRdvzSZqScdQ';
       player = new Spotify.Player({
         name: 'Music Circle',
         getOAuthToken: cb => { cb(token); }
@@ -53,15 +60,25 @@
       console.log('Toggled playback!');
       });
     }
-    playElectro = () => {
+    test = () => {
+      spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
+      if (err) console.error(err);
+      else console.log('Artist albums', data);
+      });
+    }
+    getBlues = () => {
+      spotifyApi.getCategory('blues', function(err, data) {
+      if (err) console.error(err);
+      else console.log('Blues Category', data);
+      });
     }
   </script>
 
   <button onclick="toggleMusic()">Play/Pause</button>
 
-  <button onclick="playElectro()">Electro</button>
+  <button onclick="test()">Get Info</button>
   <button onclick="toggleMusic()">R&B</button>
-  <button onclick="toggleMusic()">Blues</button>
+  <button onclick="getBlues()">Blues</button>
 
 </body>
 </html>
