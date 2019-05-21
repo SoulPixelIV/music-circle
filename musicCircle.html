@@ -12,13 +12,13 @@
 
   <script>
     var spotifyApi = new SpotifyWebApi();
-    spotifyApi.setAccessToken('BQA3S0PVPD33fqY_-gqsFoREL7W1TTeZSAeQrqIp6spoWNQCy1-GcnX3eUGRBca7IuUgUJELIBLDcVwKoJ67aHsvme1UNEJtKoRW5yUfLcHsDldlghfBYfZsdc5PwsADNbdGhtd5aaBa8r1bW83EHO4Ht-UvSCKRdvzSZqScdQ');
+    spotifyApi.setAccessToken('BQACRCSozVjFUjad3rSeaQwP9Ci_rvpQCCFVHVu3s9I7jhrGVl3wMH4DEf1GDVgIZJ89SEQZ1dytt91fp2W8eB3mcAzc1bHLPgyu3QIN-eFQKxpdNhh1ebFaY1f8K4RlRR6jpMkx9a38fGMIEVkiWFyxMDoE8bXNYGxZ4nAo7Q');
   </script>
 
   <script>
     var player;
     window.onSpotifyWebPlaybackSDKReady = () => {
-      const token = 'BQA3S0PVPD33fqY_-gqsFoREL7W1TTeZSAeQrqIp6spoWNQCy1-GcnX3eUGRBca7IuUgUJELIBLDcVwKoJ67aHsvme1UNEJtKoRW5yUfLcHsDldlghfBYfZsdc5PwsADNbdGhtd5aaBa8r1bW83EHO4Ht-UvSCKRdvzSZqScdQ';
+      const token = 'BQACRCSozVjFUjad3rSeaQwP9Ci_rvpQCCFVHVu3s9I7jhrGVl3wMH4DEf1GDVgIZJ89SEQZ1dytt91fp2W8eB3mcAzc1bHLPgyu3QIN-eFQKxpdNhh1ebFaY1f8K4RlRR6jpMkx9a38fGMIEVkiWFyxMDoE8bXNYGxZ4nAo7Q';
       player = new Spotify.Player({
         name: 'Music Circle',
         getOAuthToken: cb => { cb(token); }
@@ -61,10 +61,7 @@
       });
     }
     test = () => {
-      spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
-      if (err) console.error(err);
-      else console.log('Artist albums', data);
-      });
+      console.log(findAlbum());
     }
     getBlues = () => {
       spotifyApi.getCategory('blues', function(err, data) {
@@ -72,12 +69,27 @@
       else console.log('Blues Category', data);
       });
     }
+
+    findAlbum = () => {
+      spotifyApi.getAlbum('6GTO3ey6iYg92zyBWRMxHg', function(err, albumData) {
+        if (err) console.error(err);
+        else playTrack(albumData);
+      });
+    }
+    playTrack = (album) => {
+      spotifyApi.play({
+      "context_uri": "spotify:album:".concat(album.id)}, 
+      function(err, data) {
+        if (err) console.error(err);
+        else console.log('Playing', data);
+      });
+    }
   </script>
 
   <button onclick="toggleMusic()">Play/Pause</button>
 
-  <button onclick="test()">Get Info</button>
-  <button onclick="toggleMusic()">R&B</button>
+  <button onclick="findAlbum()">Get Info</button>
+  <button onclick="test()">R&B</button>
   <button onclick="getBlues()">Blues</button>
 
 </body>
