@@ -12,13 +12,13 @@
 
   <script>
     var spotifyApi = new SpotifyWebApi();
-    spotifyApi.setAccessToken('BQACRCSozVjFUjad3rSeaQwP9Ci_rvpQCCFVHVu3s9I7jhrGVl3wMH4DEf1GDVgIZJ89SEQZ1dytt91fp2W8eB3mcAzc1bHLPgyu3QIN-eFQKxpdNhh1ebFaY1f8K4RlRR6jpMkx9a38fGMIEVkiWFyxMDoE8bXNYGxZ4nAo7Q');
+    spotifyApi.setAccessToken('BQC_tKrVYEyDkLC-oE-874IJokGbSbxWPuDd-1G2_q__HS9gCXPjJYTb2CZZyS2mnTQoXFVtBdkyRLdZ3ja_YhrybwAiBAEARGaSI-VTcsCw1R9pJ3aVw642zuPBTi6bbtpnsd21YCjxD0lKrlfMh3Qn7livu5DbtC-8BcJqZg');
   </script>
 
   <script>
     var player;
     window.onSpotifyWebPlaybackSDKReady = () => {
-      const token = 'BQACRCSozVjFUjad3rSeaQwP9Ci_rvpQCCFVHVu3s9I7jhrGVl3wMH4DEf1GDVgIZJ89SEQZ1dytt91fp2W8eB3mcAzc1bHLPgyu3QIN-eFQKxpdNhh1ebFaY1f8K4RlRR6jpMkx9a38fGMIEVkiWFyxMDoE8bXNYGxZ4nAo7Q';
+      const token = 'BQC_tKrVYEyDkLC-oE-874IJokGbSbxWPuDd-1G2_q__HS9gCXPjJYTb2CZZyS2mnTQoXFVtBdkyRLdZ3ja_YhrybwAiBAEARGaSI-VTcsCw1R9pJ3aVw642zuPBTi6bbtpnsd21YCjxD0lKrlfMh3Qn7livu5DbtC-8BcJqZg';
       player = new Spotify.Player({
         name: 'Music Circle',
         getOAuthToken: cb => { cb(token); }
@@ -70,10 +70,22 @@
       });
     }
 
-    findRAndBAlbums = () => {
-      spotifyApi.getCategoryPlaylists('rnb-page', function(err, RAndBPlaylists) {
+    findRAndBAlbums = (category) => {
+      spotifyApi.getCategoryPlaylists(category, function(err, RAndBPlaylists) {
         if (err) console.error(err);
         else playTrack(RAndBPlaylists.playlists);
+      });
+    }
+    getAllCategories = () => {
+      spotifyApi.getCategories(function(err, allCategories) {
+      if (err) console.error(err);
+      else getGenre(allCategories);
+      });
+    }
+    getGenre = (allCategories) => {
+      spotifyApi.getCategory('dinner', function(err, genre) {
+      if (err) console.error(err);
+      else findRAndBAlbums(genre);
       });
     }
 
@@ -96,7 +108,7 @@
   <button onclick="toggleMusic()">Play/Pause</button>
 
   <button onclick="findAlbum()">Get Info</button>
-  <button onclick="findRAndBAlbums()">R&B</button>
+  <button onclick="getAllCategories()">R&B</button>
   <button onclick="getBlues()">Blues</button>
 
 </body>
