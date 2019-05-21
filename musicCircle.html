@@ -70,6 +70,13 @@
       });
     }
 
+    findRAndBAlbums = () => {
+      spotifyApi.getCategoryPlaylists('rnb-page', function(err, RAndBPlaylists) {
+        if (err) console.error(err);
+        else playTrack(RAndBPlaylists.playlists);
+      });
+    }
+
     findAlbum = () => {
       spotifyApi.getAlbum('6GTO3ey6iYg92zyBWRMxHg', function(err, albumData) {
         if (err) console.error(err);
@@ -89,7 +96,7 @@
   <button onclick="toggleMusic()">Play/Pause</button>
 
   <button onclick="findAlbum()">Get Info</button>
-  <button onclick="test()">R&B</button>
+  <button onclick="findRAndBAlbums()">R&B</button>
   <button onclick="getBlues()">Blues</button>
 
 </body>
